@@ -1,0 +1,62 @@
+{% extends "insta/base.html" %}
+{% block content %}
+
+<!-- 점보토론 시작 -->
+<div class="jumbotron">
+    <h1 class="display-4">JGB Instagram!</h1>
+    <p class="lead">Welcome to JGB Instgram</p>
+    <hr class="my-4">
+</div>
+<!-- 점보토론 끝! -->
+
+<!-- 정렬 박스 -->
+<div class="btn-group float-right">
+    <div class="d-flex">
+        <div class= "btn-group">
+            <button type="button" class="btn btn-info">정렬</button>
+            <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                <a class="dropdown-item" href="?sort=new">최신</a>
+                <a class="dropdown-item" href="?sort=like">좋아요</a>
+            </div>
+        </div> 
+    </div>   
+</div>
+<!-- 정렬 박스 끝! -->
+<!-- 쿼리스트링 뷰에서 받은 변수로 처리한다! -->
+
+<br>
+{% for post in posts %}
+<div class= "card mt-5">
+    <div class="card-header">
+        <img src="{{post.user.profile.url}}" class="profile" style="margin-right:20px;">{{ post.user }}
+        <span class= "float-right" data-toggle = "tooltip" data-placement="right"
+            title="{{ post.updated | date:'Y년 n월 j일 a g:i' }}">{{ post.updated | timesince }}전</span></div>
+    <img src="{{ post.image.url }}" class = "card-img-top">
+    <div class = "card-body" style= "border-top: 0.5px solid lightgray">
+        <p class = "card-text">{{ post.caption }}</p>
+        <p align= "center"><img src= "media/인스타그램 하트.png" height="25px" width="25px" alt="">  {{post.like_count}}</p>
+        <!-- <p align="center">{{post.like_count}}개</p> -->
+    </div>
+    <div class = "card-footer text-muted">
+</div>
+
+<style>
+    .profile{
+        border: 2px solid black;
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+    }
+
+    .btn-group{
+        position:relative;
+        bottom: 3px;
+    }
+
+</style>
+
+{% endfor %}
+{% endblock %}
